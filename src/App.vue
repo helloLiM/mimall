@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="你好啊，我叫赛利亚"/>
+   <router-view></router-view>
   </div>
 </template>
 
