@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import storage from './storage/index'
+// import storage from './storage/index'
 export default {
   name: 'App',
   components: {
@@ -13,16 +13,29 @@ export default {
   },
   data(){
     return {
-
+      res:{}
     }
   },
   mounted(){
-    storage.setItem('a',1)   //给user加一个同级的a:1
+    // storage.setItem('a',1)   //给user加一个同级的a:1
     // storage.setItem('user',{a:1})    给user写入{a:1}，这样做会覆盖掉原来的user
     // storage.setItem("赛利亚","{你好啊}",'user')   这样写才会为user添加”赛利亚：你好啊“
     // storage.setItem('abc',{a:10},'user')
     // storage.clear('a')   删除和user同级的a
     // storage.clear('a','user')   删除user下的a
+
+    //使用json方式mock数据，数据源就在本地文件夹中，但是这种方法有弊端，要改动代码，比如main.js中的baseUrl不能再使用/api了
+    // this.axios.get('/mock/user/login.json').then((res)=>{
+    //   this.res = res
+    // })
+
+    //使用mockjs方式mock数据
+    this.axios.get('user/login').then((res)=>{
+      this.res = res
+    })
+
+    
+    
   }
 }
 </script>
