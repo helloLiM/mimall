@@ -61,36 +61,63 @@
            </div>
            <div class="product-box">
                <div class="container">
-                   <h2>手机</h2>
+                   <h2> 手机 </h2>
                    <div class="wrapper">
                        <div class="banner-left">
                            <a href="/#/product/35"><img v-bind:src="'imgs/mix-alpha.png'" alt=""></a>
                        </div>
                        <div class="list-box">
-                           <div class="list" v-for="(arr,i) in phoneList" v-bind:key ="i">
-                               <div class="item" v-for="(item,j) in arr" v-bind:key ="j">
-                                   <span>新品</span>
+                           <div class="list" v-for="(arr,i) in phoneList" v-bind:key="i">
+                               <div class="item" v-for="(item,j) in arr" v-bind:key="j">
                                    <div class="item-img">
-                                       <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0099822e42b4428cb25c4cdebc6ca53d.jpg?thumb=1&w=200&h=200&f=webp&q=90" alt="">
+                                       <img v-bind:src="item.mainImage" alt="">
                                    </div>
                                    <div class="item-info">
-                                       <h3>小米10</h3>
-                                       <p>骁龙865，索尼4800万超广角微距</p>
-                                       <p class="price">2999元</p>
+                                       <h3>{{item.name}}</h3>
+                                       <p>{{item.subtitle}}</p>
+                                       <p class="price">{{item.price}}元</p>
                                    </div>
                                </div>
                            </div>
+                           <!-- <div class="list" v-for="(arr,i) in phoneList" v-bind:key="i">
+                                <div class="item" v-for="(item,j) in arr" v-bind:key="j">
+                                    <span v-bind:class="{'new-pro':j%2==0}">新品</span>
+                                    <div class="item-img">
+                                    <img v-lazy="item.mainImage" alt="">
+                                    </div>
+                                    <div class="item-info">
+                                    <h3>{{item.name}}</h3>
+                                    <p>{{item.subtitle}}</p>
+                                    <p class="price" >{{item.price}}元</p>
+                                    </div>
+                                </div>
+                            </div> -->
                        </div>
                    </div>
                </div>
            </div>
        </div>
        <service-bar></service-bar>
+       <modal 
+            title="提示" 
+            sureText="查看购物车" 
+            btnType="1" 
+            modalType="middle" 
+            v-bind:showModal="true"
+            v-on:submit="goToCart"
+            v-on:cancel="showModal=false"
+            >
+            <!-- v-slot为了接收modal组件中body插槽的内容 -->
+            <template v-slot:body>
+                <p>商品添加成功！</p>
+            </template>
+        </modal>
     </div>
 </template>
 <script>
 import {swiper,swiperSlide} from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
+import Modal from './../components/Modal'
 import ServiceBar from './../components/ServiceBar'
 //   var mySwiper = new Swiper ('.swiper-container', {
 //     direction: 'vertical', // 垂直切换选项
@@ -117,7 +144,8 @@ export default {
     components:{
         swiper,
         swiperSlide,
-        ServiceBar
+        ServiceBar,
+        Modal
     },
     data(){
         return {
@@ -193,9 +221,7 @@ export default {
                     img:'/imgs/ads/ads-4.jpg'
                 }
             ],
-            phoneList:[
-                [1,1,1,1,],[1,1,1,1,]
-            ],
+            phoneList:[],
         }
     },
     computed: {
@@ -204,15 +230,27 @@ export default {
       }
     },
     mounted() {
-      console.log('Current Swiper instance object', this.swiper)
-      this.swiper.slideTo(3, 1000, false)
+        this.init()
+    },
+    methods:{
+        init(){
+            this.axios.get('/products',{
+                params:{
+                    categoryId:100012,
+                    pageSize:14
+                }
+            }).then((res)=>{
+                res.list = res.list.slice(6,14)
+                this.phoneList = [res.list.slice(0,4),res.list.slice(4,8)]
+            })
+        }
     }
 }
 </script>
 <style lang="scss">
 @import './../assets/scss/config.scss';
 @import './../assets/scss/mixin.scss';
-// @import './../assets/scss/base.scss';
+@import './../assets/scss/base.scss';
     .index{
        .container{
             .swiper-box{
@@ -243,10 +281,11 @@ export default {
                                 }
                             }
                             a{
-                                display: block;
+                                display: inline-block;
                                 font-style: 16px;
                                 color: #fff;
                                 padding-left: 30px;
+                                margin-left: -120px;
                                 text-decoration: none;
                                 &::after{
                                     position: absolute;
@@ -323,6 +362,8 @@ export default {
                 line-height:21px;
                 color:$colorB;
                 margin-bottom:20px;
+                margin-top: -10px;
+                font-weight: initial;
             }
             .wrapper{
                 display:flex;
@@ -362,8 +403,9 @@ export default {
                     }
                     .item-img{
                         img{
-                        // width:100%;
-                        height:195px;
+                            width: 90%;
+                            // width: 195px;
+                            height:195px;
                         }
                     }
                     .item-info{

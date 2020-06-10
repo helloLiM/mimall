@@ -167,31 +167,31 @@ export default {
     },
     methods:{
         login(){
-        this.$router.push('/login')
-        },
-        getProductList(){
-            this.axios.get('/products',{
-            params:{
-                categoryId:'100012',
-                pageSize:6
-            }
-            }).then((res)=>{
-            this.phoneList = res.list;
-            })
+            this.$router.push('/login')
         },
         // getProductList(){
         //     this.axios.get('/products',{
-        //             params:{
-        //                 categoryId:'100012'
-        //             }
-        //         }).then((res)=>{   //这里我们截取获取过来的六条数据
-        //             if(res.list.length>6){
-        //                 this.phoneList = res.list.slice(0,6)
-        //             }
+        //     params:{
+        //         categoryId:'100012',
+        //         pageSize:6
+        //     }
+        //     }).then((res)=>{
+        //     this.phoneList = res.list;
         //     })
         // },
+        getProductList(){
+            this.axios.get('/products',{
+                    params:{
+                        categoryId:'100012'
+                    }
+                }).then((res)=>{   //这里我们截取获取过来的六条数据
+                    if(res.list.length>6){
+                        this.phoneList = res.list.slice(0,6)
+                    }
+            })
+        },
         goToCart(){
-        this.$router.push('/cart')
+            this.$router.push('/cart')
         }
     },
     
@@ -311,6 +311,14 @@ export default {
                             z-index: 10;
                             box-shadow: 0px, 7px 6px 0px rgba(0,0,0,0.11);
                             transition: 0.5s;
+                            background-color: #fff;
+                            li{
+                                list-style: none;
+                            }
+                            a{
+                                text-decoration: none;
+                            }
+                            
                         }
                         .product{
                             position: relative;

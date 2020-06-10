@@ -18,7 +18,7 @@
     name:'nav-footer'
   }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
   .footer{
     height:234px;
     border-top:4px solid #FF6600;
