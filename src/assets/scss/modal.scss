@@ -8,13 +8,15 @@
       opacity: 0.5;
     }
     &.slide-enter-active{
-      top:0;
+      // transition: opcity .5s;
+      top: 0;
     }
     &.slide-leave-active{
-      top:-100%;
+      top:-100%
     }
     &.slide-enter{
-      top:-100%;
+      // opacity: 0;
+      top: -100%;
     }
     .modal-dialog{
       @include position(absolute,40%,50%,660px,auto);

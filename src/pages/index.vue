@@ -51,12 +51,12 @@
            </div>
            <div class="ads-box">
                <a v-bind:href="'/#/product/'+item.id" v-for="(item,index) in adsList" v-bind:key="index">
-                    <img v-bind:src="item.img" alt="">
+                    <img v-lazy="item.img" alt="">
                 </a>
            </div>
            <div class="banner">
                <a href="/#/product/30">
-                    <img v-bind:src="'/imgs/banner-1.png'" alt="">
+                    <img v-lazy="'/imgs/banner-1.png'" alt="">
                 </a>
            </div>
            <div class="product-box">
@@ -64,18 +64,18 @@
                    <h2> 手机 </h2>
                    <div class="wrapper">
                        <div class="banner-left">
-                           <a href="/#/product/35"><img v-bind:src="'imgs/mix-alpha.png'" alt=""></a>
+                           <a href="/#/product/35"><img v-lazy="'imgs/mix-alpha.png'" alt=""></a>
                        </div>
                        <div class="list-box">
                            <div class="list" v-for="(arr,i) in phoneList" v-bind:key="i">
                                <div class="item" v-for="(item,j) in arr" v-bind:key="j">
                                    <div class="item-img">
-                                       <img v-bind:src="item.mainImage" alt="">
+                                       <img v-lazy="item.mainImage" alt="">
                                    </div>
                                    <div class="item-info">
                                        <h3>{{item.name}}</h3>
                                        <p>{{item.subtitle}}</p>
-                                       <p class="price">{{item.price}}元</p>
+                                       <p class="price" v-on:click="addCart(item.id)">{{item.price}}元</p>
                                    </div>
                                </div>
                            </div>
@@ -101,9 +101,9 @@
        <modal 
             title="提示" 
             sureText="查看购物车" 
-            btnType="1" 
+            btnType="3" 
             modalType="middle" 
-            v-bind:showModal="true"
+            v-bind:showModal="showModal"
             v-on:submit="goToCart"
             v-on:cancel="showModal=false"
             >
@@ -222,6 +222,7 @@ export default {
                 }
             ],
             phoneList:[],
+            showModal:false
         }
     },
     computed: {
@@ -243,6 +244,12 @@ export default {
                 res.list = res.list.slice(6,14)
                 this.phoneList = [res.list.slice(0,4),res.list.slice(4,8)]
             })
+        },
+        addCart(){
+            this.showModal = true
+        },
+        goToCart(){
+            this.$router.push('/cart')
         }
     }
 }

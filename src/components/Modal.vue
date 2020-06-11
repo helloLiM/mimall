@@ -4,18 +4,18 @@
       <div class="mask"></div>
       <div class="modal-dialog">
         <div class="modal-header">
-          <span>标题</span>
-          <a href="javascript:;" class="icon-close"></a>
+          <span>{{title}}</span>
+          <a href="javascript:;" class="icon-close" v-on:click = "$emit('cancel')" ></a>
         </div>
         <div class="modal-body">
           <slot name="body">你好啊，我叫赛利亚</slot>
         </div>
         <div class="modal-footer">
-          <!-- <a href="javascript:;" class="btn" v-if="btnType==1" >确定</a>
-          <a href="javascript:;" class="btn" v-if="btnType==2" >取消</a> -->
-          <div class="btn-group" >
-            <a href="javascript:;" class="btn" >确定</a>
-            <a href="javascript:;" class="btn btn-default" >取消</a>
+          <a href="javascript:;" class="btn" v-if="btnType==1" v-on:click = "$emit('submit')" >{{sureText}}</a>
+          <a href="javascript:;" class="btn" v-if="btnType==2" v-on:click = "$emit('cancel')" >{{cancelText}}</a>
+          <div class="btn-group" v-if="btnType==3">
+            <a href="javascript:;" class="btn"  v-on:click = "$emit('submit')">{{sureText}}</a>
+            <a href="javascript:;" class="btn btn-default" v-on:click = "$emit('cancel')" >{{cancelText}}</a>
           </div>
         </div>
       </div>

@@ -3,8 +3,12 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import vueLazyLoad from 'vue-lazyload'
 // import require from 'require.js'
 Vue.use(VueAxios,axios)
+Vue.use(vueLazyLoad,{
+  loading:'/imgs/loading-svg/loading-bars.svg' //引用图片懒加载，并指定懒加载方式
+})
 
 // import jsonData from './mock/api'
 // let jsonData = import('./mock/api');
