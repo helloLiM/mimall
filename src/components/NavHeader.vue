@@ -10,10 +10,10 @@
                 </div>
                 <div class="topbar-user">
                     <a href="javascript" v-if = "username">{{username}}</a>
-                    <a href="javascript" v-if = "!username" @click="login">登录</a>
-                    <a href="javascript" v-if = "!username">注册</a>
+                    <a href="" v-if = "!username" @click="login">登录</a>
+                    <!-- <a href="javascript" v-if = "!username">注册</a> -->
                     <a href="javascript" v-if = "username">我的订单</a>
-                    <a href="javascript" class="my-cart" @click="goToCart"> <span class="icon-cart"></span> 购物车</a>
+                    <a href="javascript" class="my-cart" @click="goToCart"> <span class="icon-cart"></span> 购物车({{ cartCount }})</a>
                 </div>
                 
             </div>
@@ -152,7 +152,6 @@ export default {
     name:'nav-header',
     data(){
         return{
-            username:'',
             phoneList:[]
         }
     },
@@ -164,6 +163,15 @@ export default {
     },
     mounted(){
         this.getProductList()
+    },
+    computed:{
+        username(){
+            return this.$store.state.username//因为app.vue加载时，它的方法中还没有取到username的值，所以会出现刷新页面不出现
+            //用户名的现象，这是我们吧用户名写在navheader的计算属性中，通过缓存，就不会出现刷新页面不出现用户名的现象了
+        },
+        cartCount(){
+            return this.$store.state.cartCount//原理同上
+        }
     },
     methods:{
         login(){
@@ -223,6 +231,7 @@ export default {
                     background-color: #FF6600;
                     text-align: center;
                     color: #fff;
+                    margin-right: 0;
                     .icon-cart{
                         display:inline-block;
                         width:16px;

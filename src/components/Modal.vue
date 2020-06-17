@@ -11,6 +11,7 @@
           <slot name="body">你好啊，我叫赛利亚</slot>
         </div>
         <div class="modal-footer">
+          <!-- 使用$emit给父组件传值，父组件index.vue中使用v-on接收并使用 -->
           <a href="javascript:;" class="btn" v-if="btnType==1" v-on:click = "$emit('submit')" >{{sureText}}</a>
           <a href="javascript:;" class="btn" v-if="btnType==2" v-on:click = "$emit('cancel')" >{{cancelText}}</a>
           <div class="btn-group" v-if="btnType==3">

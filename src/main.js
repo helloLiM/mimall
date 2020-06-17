@@ -3,9 +3,12 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueCookie from 'vue-cookie'
+import store from './store/index'
 import vueLazyLoad from 'vue-lazyload'
 // import require from 'require.js'
 Vue.use(VueAxios,axios)
+Vue.use(VueCookie)
 Vue.use(vueLazyLoad,{
   loading:'/imgs/loading-svg/loading-bars.svg' //引用图片懒加载，并指定懒加载方式
 })
@@ -35,6 +38,7 @@ axios.interceptors.response.use(
       window.location.href = '/#/login';
     }else{
       alert (res.msg);
+      return Promise.reject(res)
     }
   } 
 )
@@ -42,5 +46,6 @@ axios.interceptors.response.use(
 Vue.config.productionTip = false
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')
