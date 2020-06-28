@@ -37,7 +37,7 @@ axios.interceptors.response.use(
     }else if(res == 10) {
       window.location.href = '/#/login';
     }else{
-      alert (res.msg);
+      // alert (res.msg);
       return Promise.reject(res)
     }
   } 

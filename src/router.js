@@ -13,21 +13,21 @@ import AliPay from './pages/alipay.vue'
 import Login from './pages/login.vue'
 Vue.use(Router)
 export default new Router({
-    mode: 'history',
+    mode: 'hash',
     routes:[
         {
             path:'/',
             // name:'home',
             component:Home,
-            // redirect:'/index',
+            redirect:'/index',
             children:[
                 {
                     path:'/index',
                     // name:'index',
                     component:Index
                 },{
-                    path:'/product',
-                    name:'product',
+                    path:'/product/:id',
+                    // name:'product',
                     component:Product
                 },{
                     path:'/detail',
