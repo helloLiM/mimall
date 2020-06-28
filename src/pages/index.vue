@@ -100,7 +100,8 @@
        <service-bar></service-bar>
        <modal 
             title="提示" 
-            sureText="查看购物车" 
+            sureText="前往购物车" 
+            cancelText="确定"
             btnType="3" 
             modalType="middle" 
             v-bind:showModal="showModal"
@@ -245,8 +246,14 @@ export default {
                 this.phoneList = [res.list.slice(0,4),res.list.slice(4,8)]
             })
         },
-        addCart(){
-            this.showModal = true
+        addCart(id){
+            this.axios.post('/carts',{
+                productId:id,
+                selected: true
+            }).then((res)=>{
+                this.showModal = true;
+                this.$store.dispatch('saveCartCount',res.cartTotalQuantity);
+            });
         },
         goToCart(){
             this.$router.push('/cart')

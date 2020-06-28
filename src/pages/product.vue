@@ -56,7 +56,7 @@
   import ProductParam from './../components/ProductParam'
   export default{
     name:'product',
-    components:{
+    components:{  
       swiper,
       swiperSlide,
       ProductParam
