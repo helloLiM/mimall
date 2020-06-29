@@ -15,7 +15,6 @@
                     <a href="javascript" v-if = "username">我的订单</a>
                     <a href="javascript" class="my-cart" @click="goToCart"> <span class="icon-cart"></span> 购物车({{ cartCount }})</a>
                 </div>
-                
             </div>
         </div>
         <div class="nav-header">
@@ -202,7 +201,6 @@ export default {
             this.$router.push('/cart')
         }
     },
-    
 }
 </script>
 <style lang="scss">
@@ -327,7 +325,6 @@ export default {
                             a{
                                 text-decoration: none;
                             }
-                            
                         }
                         .product{
                             position: relative;
