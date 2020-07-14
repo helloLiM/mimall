@@ -6,9 +6,13 @@ import VueAxios from 'vue-axios'
 import VueCookie from 'vue-cookie'
 import store from './store/index'
 import vueLazyLoad from 'vue-lazyload'
+import { Message } from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 // import require from 'require.js'
 Vue.use(VueAxios,axios)
 Vue.use(VueCookie)
+Vue.use(Message)
+Vue.prototype.$message = Message;//将Message挂载到Vue的原型链上
 Vue.use(vueLazyLoad,{
   loading:'/imgs/loading-svg/loading-bars.svg' //引用图片懒加载，并指定懒加载方式
 })
