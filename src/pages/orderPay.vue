@@ -1,5 +1,10 @@
 <template>
   <div class="order-pay">
+    <order-header title="订单支付">
+      <template v-slot:tip>
+        <span>请谨防钓鱼链接或诈骗电话，了解更多</span>
+      </template>
+    </order-header>
     <div class="wrapper">
       <div class="container">
         <div class="order-wrap">
@@ -67,6 +72,7 @@
   </div>
 </template>
 <script>
+import OrderHeader from './../components/OrderHeader'
 import ScanPayCode from './../components/ScanPayCode'
 import QRCode from 'qrcode'
 import Modal from './../components/Modal'
@@ -89,6 +95,7 @@ export default{
   components:{
     Modal,
     ScanPayCode,
+    OrderHeader
   },
   mounted(){
     this.getOrderDetail();

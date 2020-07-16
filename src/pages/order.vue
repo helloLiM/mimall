@@ -1,17 +1,16 @@
 <template>
     <div>
-        <order-header :title=" title ">
+        <!-- <order-header :title=" title ">
             <template >
-                <span>{{ tip }}</span>
+                <span>{{ tip }}</span>   由于在子路由中跳转不会触发mounted方法，所以要将他们分别写入子组件中
             </template>
-        </order-header>
+        </order-header> -->
         <router-view></router-view>
         <service-bar></service-bar>
         <nav-footer></nav-footer>
     </div>
 </template>
 <script>
-import orderHeader from './../components/OrderHeader'
 import NavFooter from './../components/NavFooter'
 import ServiceBar from './../components/ServiceBar'
 export default {
@@ -23,7 +22,6 @@ export default {
         }
     },
     components:{
-        orderHeader,
         NavFooter,
         ServiceBar
     },

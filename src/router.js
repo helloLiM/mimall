@@ -17,55 +17,55 @@ export default new Router({
     routes:[
         {
             path:'/',
-            // name:'home',
+            name:'home',
             component:Home,
             redirect:'/index',
             children:[
                 {
                     path:'/index',
-                    // name:'index',
+                    name:'index',
                     component:Index
                 },{
                     path:'/product/:id',
-                    // name:'product',
+                    name:'product',
                     component:Product
                 },{
                     path:'/detail/:id',
-                    // name:'detail',
+                    name:'detail',
                     component:Detail
                 }
             ]
         },
         {
             path:'/cart',
-            // name:'cart',
+            name:'cart',
             component: Cart
         },
         {
             path:'/login',
-            // name:'cart',
+            name:'cart',
             component: Login
         },
         {
             path:'/order',
-            // name:'order',
+            name:'order',
             component: Order,
             children:[
                 {
                     path:'list',
-                    // name:'order-list',
+                    name:'order-list',
                     component:OrderList
                 },{
                     path:'pay',
-                    // name:'order-pay',
+                    name:'order-pay',
                     component:OrderPay
                 },{
                     path:'confirm',
-                    // name:'order-confirm',
+                    name:'order-confirm',
                     component:OrderConfirm
                 },{
                     path:'alipay',
-                    // name:'alipay',
+                    name:'alipay',
                     component:AliPay
                 }
             ]
