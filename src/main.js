@@ -12,7 +12,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(VueAxios,axios)
 Vue.use(VueCookie)
 Vue.use(Message)
-Vue.prototype.$message = Message;//将Message挂载到Vue的原型链上
+Vue.prototype.$message = Message;//将Message挂载到Vue的原型上
 Vue.use(vueLazyLoad,{
   loading:'/imgs/loading-svg/loading-bars.svg' //引用图片懒加载，并指定懒加载方式
 })
@@ -36,12 +36,16 @@ axios.defaults.timeout = 5000;
 axios.interceptors.response.use(
   function(response){
     let res = response.data;
+    let path = location.hash;
     if(res.status== 0){
       return res.data;
     }else if(res == 10) {
+      if(path != '#/index'){
       window.location.href = '/#/login';
+    }return Promise.reject(res)
     }else{
       // alert (res.msg);
+      Message.warning(res.msg);
       return Promise.reject(res)
     }
   } 

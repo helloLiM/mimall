@@ -11,6 +11,7 @@
                 <div class="topbar-user">
                     <a href="javascript" v-if = "username">{{username}}</a>
                     <a href="" v-if = "!username" @click="login">登录</a>
+                    <a href="" v-if = "username" @click="logout">退出</a>
                     <!-- <a href="javascript" v-if = "!username">注册</a> -->
                     <a href="javascript" v-if = "username">我的订单</a>
                     <a href="javascript" class="my-cart" @click="goToCart"> <span class="icon-cart"></span> 购物车({{ cartCount }})</a>
@@ -161,8 +162,12 @@ export default {
         }
     },
     mounted(){
-        this.getProductList()
-    },
+        this.getProductList();
+            let params = this.$route.params;
+            if(params && params.from == 'login'){
+                this.getCartCount();
+            }
+        },
     computed:{
         username(){
             return this.$store.state.username//因为app.vue加载时，它的方法中还没有取到username的值，所以会出现刷新页面不出现
@@ -176,6 +181,7 @@ export default {
         login(){
             this.$router.push('/login')
         },
+        
         // getProductList(){
         //     this.axios.get('/products',{
         //     params:{
@@ -197,6 +203,19 @@ export default {
                     }
             })
         },
+        getCartCount(){//获取购物车数量，用于退出后重登陆
+            this.axios.get('/carts/products/sum').then((res=0)=>{
+            this.$store.dispatch('saveCartCount',res);
+            })
+        },
+        logout(){//退出登录
+        this.axios.post('/user/logout').then(()=>{
+          this.$message.success('退出成功');
+          this.$cookie.set('userId','',{expires:'-1'});
+          this.$store.dispatch('saveUserName','');
+          this.$store.dispatch('saveCartCount','0');
+        })
+      },
         goToCart(){
             this.$router.push('/cart')
         }
