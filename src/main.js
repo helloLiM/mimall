@@ -39,7 +39,7 @@ axios.interceptors.response.use(
     let path = location.hash;
     if(res.status== 0){
       return res.data;
-    }else if(res == 10) {
+    }else if(res.status == 10) {
       if(path != '#/index'){
       window.location.href = '/#/login';
     }return Promise.reject(res)
